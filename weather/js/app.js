@@ -5,15 +5,19 @@ class WeatherStation {
     this.pressure = null;
     this.history = [];
   }
-  // ---------------------
+  // ---------------------------------------------------------------------------
   updateWeatherData(temp, humidity, pressure) {
     this.temp = temp;
     this.humidity = humidity;
     this.pressure = pressure;
-    this.history.push(`${temp}°C, ${humidity}%, ${pressure}mm`);
+    this.history.push({
+      temp: temp,
+      humidity: humidity,
+      pressure: pressure,
+    });
   }
 
-  // -----------------
+  // -----------------------------------------------------------------------------
 
   displayWeatherForecast() {
     if (
@@ -21,26 +25,19 @@ class WeatherStation {
       this.humidity === null ||
       this.pressure === null
     ) {
-      console.log("No data");
+      return "No Data";
     }
-    if (
-      (this.temp >= 15 && this.humidity <= 50 && this.pressure >= 750) ||
-      this.pressure <= 760
-    ) {
-      console.log("Sunshine");
+    if (this.temp >= 15 && this.humidity <= 50 && this.pressure >= 750) {
+      return "Sunshine";
     } else if (
-      (this.temp <= 15 &&
-        this.humidity >= 50 &&
-        this.humidity < 60 &&
-        this.pressure >= 750) ||
-      this.pressure <= 760
+      this.temp <= 15 &&
+      this.humidity >= 50 &&
+      this.humidity < 60 &&
+      this.pressure >= 750
     ) {
-      console.log("Rainy");
-    } else if (
-      (this.temp <= 15 && this.humidity >= 60 && this.pressure >= 750) ||
-      this.pressure <= 760
-    ) {
-      console.log("Rain");
+      return "Rainy";
+    } else if (this.temp <= 15 && this.humidity >= 60 && this.pressure >= 750) {
+      return "Rain";
     }
   }
   getHistory() {
@@ -48,19 +45,45 @@ class WeatherStation {
   }
 }
 const c = new WeatherStation();
-c.updateWeatherData(20, 50, 760);
-c.updateWeatherData(22, 50, 760);
-c.updateWeatherData(24, 50, 760);
-c.updateWeatherData(25, 50, 760);
-c.displayWeatherForecast();
+// c.updateWeatherData(20, 50, 760);
+// const displayForecast = c.displayWeatherForecast();
+// console.log(displayForecast);
 console.log(c);
 
-// -------
+// ----------------------------------------------------------------------------------------
 
 function showWeather() {
   document.getElementById("temp").textContent = `Temp:${c.temp}C`;
   document.getElementById("humidity").textContent = `Humidity:${c.humidity}%`;
   document.getElementById("pressure").textContent = `Pressure:${c.pressure}mm`;
-  document.getElementById("history").textContent = `History:${c.history}`;
+  document.getElementById(
+    "forecast"
+  ).textContent = `Weather forecast:${c.displayWeatherForecast()}`;
 }
+
+function updateWeatherDataFromInput() {
+  const tempInput = parseInt(document.getElementById("tempInput").value);
+  const humidityInput = parseInt(
+    document.getElementById("humidityInput").value
+  );
+  const pressureInput = parseInt(
+    document.getElementById("pressureInput").value
+  );
+
+  if (!isNaN(tempInput) && !isNaN(humidityInput) && !isNaN(pressureInput)) {
+    c.updateWeatherData(tempInput, humidityInput, pressureInput);
+    showWeather();
+  } else {
+    console.log("error");
+  }
+}
+document
+  .getElementById("tempInput")
+  .addEventListener("input", updateWeatherDataFromInput);
+document
+  .getElementById("humidityInput")
+  .addEventListener("input", updateWeatherDataFromInput);
+document
+  .getElementById("pressureInput")
+  .addEventListener("input", updateWeatherDataFromInput);
 showWeather();
