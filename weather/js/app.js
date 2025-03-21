@@ -10,7 +10,7 @@ class WeatherStation {
     this.temp = temp;
     this.humidity = humidity;
     this.pressure = pressure;
-    this.history = `temp:${temp}C, humidity:${humidity}%, pressure:${pressure}mm`;
+    this.history.push(`${temp}°C, ${humidity}%, ${pressure}mm`);
   }
 
   // -----------------
@@ -43,9 +43,15 @@ class WeatherStation {
       console.log("Rain");
     }
   }
+  getHistory() {
+    return this.history;
+  }
 }
 const c = new WeatherStation();
-c.updateWeatherData(20,50,760);
+c.updateWeatherData(20, 50, 760);
+c.updateWeatherData(22, 50, 760);
+c.updateWeatherData(24, 50, 760);
+c.updateWeatherData(25, 50, 760);
 c.displayWeatherForecast();
 console.log(c);
 
@@ -55,7 +61,6 @@ function showWeather() {
   document.getElementById("temp").textContent = `Temp:${c.temp}C`;
   document.getElementById("humidity").textContent = `Humidity:${c.humidity}%`;
   document.getElementById("pressure").textContent = `Pressure:${c.pressure}mm`;
-  document.getElementById("history").textContent = `History:${c.history}`
-
+  document.getElementById("history").textContent = `History:${c.history}`;
 }
 showWeather();
