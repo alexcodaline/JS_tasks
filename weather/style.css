@@ -1,0 +1,9 @@
+.real-weather {
+padding: 20px;
+}
+#fetch-real-weather {
+    width: 100px;
+}
+table {
+    background-color: aqua;
+}
