@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="./style.css" />
+    <title>Document</title>
+  </head>
+  <body>
+    <section class="taskManager">
+      <header class="card">
+        <h1>Task Manager</h1>
+        <form id="taskForm">
+          <input
+            type="text"
+            id="taskInput"
+            placeholder="write your task here..."
+          />
+          <select id="priority">
+            <option value="low">low</option>
+            <option value="medium">medium</option>
+            <option value="high">high</option>
+          </select>
+          <button type="submit">Add</button>
+        </form>
+        <button id="sort">Sort</button>
+      </header>
+      <div id="taskContainer"></div>
+    </section>
+    <script src="./index.js"></script>
+  </body>
+</html>
